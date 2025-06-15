@@ -4,19 +4,38 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body>
-    <form action="/" method="POST">
-      <input name="longUrl" placeholder="Enter URL" required />
-      <input type="submit" />
+  <body
+    class="bg-gray-900 text-gray-100 flex flex-col min-h-screen items-center justify-center p-4"
+  >
+    <h1 class="text-3xl font-bold mb-8">URL Shortener</h1>
+    <form
+      action="/"
+      method="POST"
+      class="flex flex-col max-w-md w-full mb-8 gap-3"
+    >
+      <input
+        name="longUrl"
+        placeholder="Enter URL"
+        required
+        class="px-4 py-3 rounded-md border-none text-black outline-none focus:shadow-md focus:shadow-green-400"
+      />
+      <input
+        type="submit"
+        class="px-4 py-3 rounded-md bg-green-400 text-black font-bold hover:bg-green-500"
+      />
     </form>
 
     <% if (shortUrl) { %>
-    <p>
-      Your shortened URL:
-      <a href="<%= shortUrl %>"><%= shortUrl %></a>
-      <img src="<%= qrc %>">
-    </p>
+    <div
+      class="max-w-md w-full bg-gray-800 rounded-lg p-6 shadow-lg space-y-4 text-center"
+    >
+      <p class="text-green-400 font-semibold break-words">
+        <a href="<%= shortUrl %>"><%= shortUrl %></a>
+      </p>
+      <img src="<%= qrc %>" class="mx-auto w-40 h-40" />
+    </div>
     <% } %>
   </body>
 </html>
