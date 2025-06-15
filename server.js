@@ -1,4 +1,5 @@
 import express from "express";
+import qrcode from "qrcode";
 const app = express();
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
@@ -8,10 +9,13 @@ app.get("/", (req, res) => {
   res.render("index", { shortUrl: null });
 });
 
-app.post("/", (req, res) => {
+app.post("/", async (req, res) => {
   const id = Math.random().toString(36).slice(2, 8);
-  urlDB[id] = req.body.longUrl;
-  res.render("index", { shortUrl: `http://localhost:3000/${id}` });
+  const longUrl = req.body.longUrl;
+  const shortUrl = `http://localhost:3000/${id}`;
+  urlDB[id] = longUrl;
+  const qrc = await qrcode.toDataURL(shortUrl);
+  res.render("index", { shortUrl, qrc });
 });
 
 app.get("/:id", (req, res) => {
